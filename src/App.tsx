@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ReactNode, useEffect, useState } from "react";
 import { get } from "./util/fetchUtils";
 import BlogPosts, { BlogPost } from "./components/BlogPosts";
 import fetchingImg from "./assets/data-fetching.png";
@@ -30,10 +30,15 @@ function App() {
     fetchPosts;
   }, []);
 
+  let content: ReactNode;
+  if (fetchedPosts) {
+    content = <BlogPosts posts={fetchedPosts} />;
+  }
+
   return (
     <main>
       <img src={fetchingImg} alt="image of fetching data process" />
-      <BlogPosts posts={fetchedPosts} />
+      {content}
     </main>
   );
 }
