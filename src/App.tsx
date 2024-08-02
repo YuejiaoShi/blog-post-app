@@ -17,6 +17,14 @@ function App() {
       const data = (await get(
         "https://jsonplaceholder.typicode.com/posts"
       )) as RawBlogData[];
+
+      const blogPosts: BlogPost[] = data.map((rawPost) => {
+        return {
+          id: rawPost.id,
+          title: rawPost.title,
+          text: rawPost.body,
+        };
+      });
     }
   }, []);
 
