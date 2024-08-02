@@ -27,7 +27,7 @@ function App() {
       });
       setFetchedPosts(blogPosts);
     }
-    fetchPosts;
+    fetchPosts();
   }, []);
 
   let content: ReactNode;
