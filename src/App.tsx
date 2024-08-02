@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { get } from "./util/fetchUtils";
-import { BlogPost } from "./components/BlogPosts";
-
+import BlogPosts, { BlogPost } from "./components/BlogPosts";
+import fetchingImg from "./assets/data-fetching.png";
 type RawBlogData = {
   id: number;
   userId: number;
@@ -30,7 +30,12 @@ function App() {
     fetchPosts;
   }, []);
 
-  return <h1>Data Fetching!</h1>;
+  return (
+    <main>
+      <img src={fetchingImg} alt="image of fetching data process" />
+      <BlogPosts posts={fetchedPosts} />
+    </main>
+  );
 }
 
 export default App;
