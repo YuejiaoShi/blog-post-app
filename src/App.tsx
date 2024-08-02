@@ -2,6 +2,7 @@ import { ReactNode, useEffect, useState } from "react";
 import { get } from "./util/fetchUtils";
 import BlogPosts, { BlogPost } from "./components/BlogPosts";
 import fetchingImg from "./assets/data-fetching.png";
+import ErrorMessage from "./components/ErrorMessage";
 type RawBlogData = {
   id: number;
   userId: number;
@@ -47,6 +48,11 @@ function App() {
   if (isFetching) {
     content = <p id="loading-fallback">Fetching posts...</p>;
   }
+
+  if (err) {
+    content = <ErrorMessage text={err} />;
+  }
+
   return (
     <main>
       <img src={fetchingImg} alt="image of fetching data process" />
