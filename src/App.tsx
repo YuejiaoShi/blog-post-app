@@ -25,7 +25,9 @@ function App() {
           text: rawPost.body,
         };
       });
+      setFetchedPosts(blogPosts);
     }
+    fetchPosts;
   }, []);
 
   return <h1>Data Fetching!</h1>;
