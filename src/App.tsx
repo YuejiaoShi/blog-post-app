@@ -11,25 +11,31 @@ type RawBlogData = {
 
 function App() {
   const [fetchedPosts, setFetchedPosts] = useState<BlogPost[] | undefined>();
-
   const [isFetching, setIsFetching] = useState(false);
+  const [err, setErr] = useState<string>();
 
   useEffect(() => {
     async function fetchPosts() {
       setIsFetching(true);
-      const data = (await get(
-        "https://jsonplaceholder.typicode.com/posts"
-      )) as RawBlogData[];
+      try {
+        const data = (await get(
+          "https://jsonplaceholder.typicode.com/posts"
+        )) as RawBlogData[];
 
-      const blogPosts: BlogPost[] = data.map((rawPost) => {
-        return {
-          id: rawPost.id,
-          title: rawPost.title,
-          text: rawPost.body,
-        };
-      });
+        const blogPosts: BlogPost[] = data.map((rawPost) => {
+          return {
+            id: rawPost.id,
+            title: rawPost.title,
+            text: rawPost.body,
+          };
+        });
+        setFetchedPosts(blogPosts);
+      } catch (err) {
+        if (err instanceof Error) {
+          setErr("Failed to fetch posts");
+        }
+      }
       setIsFetching(false);
-      setFetchedPosts(blogPosts);
     }
     fetchPosts();
   }, []);
